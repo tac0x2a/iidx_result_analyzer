@@ -5,8 +5,8 @@ import json as j
 # %%
 
 #%%
-# f = open("hoge2.json", encoding="utf-8") # sIMG_20190220_181356.jpg
-f = open("hoge.json", encoding="utf-8") # sIMG_20190220_181356.jpg
+f = open("hoge2.json", encoding="utf-8") # sIMG_20190220_181356.jpg
+# f = open("hoge.json", encoding="utf-8") # sIMG_20190220_181356.jpg
 json = j.load(f)
 text = json['textAnnotations']
 
@@ -45,6 +45,37 @@ def dj_level(line, side=1):
         after, before = line.split(" ")
     return nearlest_label(levels, after)
 
+def parse_twin_number(line, digit=4):
+    line = re.sub(r'[oOD]', "0", line).strip()
+    line = re.sub(r'[lL]',  "1", line).strip()
+    line = re.sub(r'[+-].+', "", line).strip()
+    line = re.sub(r'\s+', "", line).strip()
+
+    splited = []
+    tmp = ""
+    for c in line:
+        if c.isdigit():
+            tmp += c
+        if len(tmp) >= digit:
+            splited.append(tmp)
+            tmp = ""
+
+    if len(tmp) > 0:
+        splited.append(tmp)
+
+    return splited
+
+def ex_score(line, side=1):
+    line = re.sub(r'\s+', " ", line)
+    line = line.replace("EX SCORE", "")
+    line = line.replace("|", " ").strip()
+    splited = parse_twin_number(line, 4)
+    if side == 1:
+        before, after = splited
+    else:
+        after, before = splited
+    return after
+
 print("---------------------------------")
 doc = {}
 i = 1
@@ -54,6 +85,8 @@ while i < len(descs):
         doc['lamp'] = clear_lamp(line)
     if line.startswith("DJ"):
         doc['dj_level'] = dj_level(line)
+    if line.startswith("EX"):
+        doc['ex_score'] = ex_score(line)
     i += 1
 
 print(doc)
