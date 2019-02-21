@@ -5,7 +5,7 @@ import json as j
 # %%
 
 #%%
-# f = open("hoge2.json", encoding="utf-8") # sIMG_20190220_181356.jpg
+f = open("hoge2.json", encoding="utf-8") # sIMG_20190220_181356.jpg
 f = open("hoge.json", encoding="utf-8") # sIMG_20190220_181356.jpg
 # f = open("hoge3.json", encoding="utf-8") # sIMG_20190220_181356.jpg
 json = j.load(f)
@@ -44,8 +44,13 @@ def clear_lamp(line, side=1):
     return nearlest_label(lamps, after)
 
 def num(s):
-    s = re.sub(r'[oODם]', "0", s)
-    s = re.sub(r'[lLו]',  "1", line).strip()
+    s = s.strip()
+    s = re.sub(r'[QoOםDם]', "0", s)
+    s = re.sub(r'[lLןוו]',  "1", s)
+    s = re.sub(r'[Uu]',  "4", s)
+    s = re.sub(r'[Ss]',  "5", s)
+    s = re.sub(r'[A]',  "8", s)
+    s = re.sub(r'[q]',  "9", s)
     return s
 
 def dj_level(line, side=1):
@@ -64,7 +69,6 @@ def parse_number(line, digit=4, cnt=2):
     line = num(line)
     line = re.sub(r'[+-].+', "", line).strip()
     line = re.sub(r'\s+', "", line).strip()
-
     splited = []
     tmp = ""
     for c in line:
@@ -79,8 +83,7 @@ def parse_number(line, digit=4, cnt=2):
 
     if len(splited) > cnt:
         splited = splited[0:cnt]
-
-    return splited
+    return [int(d)  for d in splited]
 
 def ex_score(line, side=1):
     line = re.sub(r'\s+', " ", line)
@@ -99,10 +102,12 @@ def ex_score(line, side=1):
 def miss_count(line, side=1):
     line = re.sub(r'\s+', " ", line)
     line = line.replace("MISS COUNT", "")
-    line = line.replace("|", " ").strip()
+    line = line.replace("|", "").strip()
     splited = parse_number(line, 4, 2)
     if len(splited) <= 1:
         return splited[0] # first play ?
+    if len(splited) >= 2:
+        splited = splited[0:2]
     if side == 1:
         before, after = splited
     else:
@@ -207,7 +212,7 @@ while i < len(descs):
         break
     i += 1
 
-doc['track'] = descs[i+1]
+doc['track'] = descs[len(descs)-2]
 
 print(doc)
 
