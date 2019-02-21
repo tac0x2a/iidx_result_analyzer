@@ -1,0 +1,1 @@
+# IIDX Result Analyzer powered by Google Cloud Vision API
