@@ -7,7 +7,7 @@ import json as j
 #%%
 f = open("hoge2.json", encoding="utf-8") # sIMG_20190220_181356.jpg
 f = open("hoge.json", encoding="utf-8") # sIMG_20190220_181356.jpg
-# f = open("hoge3.json", encoding="utf-8") # sIMG_20190220_181356.jpg
+f = open("hoge3.json", encoding="utf-8") # sIMG_20190220_181356.jpg
 json = j.load(f)
 text = json['textAnnotations']
 s = text[0]
