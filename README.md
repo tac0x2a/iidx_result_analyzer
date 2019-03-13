@@ -28,4 +28,7 @@ firebase functions:log
 
 curl -X POST -F hoge=@sample.jpg  https://<host>/hello_world
 finish : {"sample.jpg":{"filename":"sample.jpg","mimetype":"image/jpeg"}}
+
+npm install --save @google-cloud/vision
+curl -X POST -F hoge=@sample2.jpg  https://<host>/hello_world
 ```
