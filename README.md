@@ -3,11 +3,14 @@
 ## Deploy
 
 ```sh
+# gcloud
 gcloud beta functions deploy hello_world --trigger-http --runtime=python37
 ```
 
 ## Memo
 ```
+# firebase
+
 cd analyze
 firebase init functions
 firebase deploy --only functions
@@ -19,4 +22,10 @@ curl 'https://<host>/hello_world?text=hi!'
 
 firebase functions:delete hello_world
 
+npm install --save multer
+
+firebase functions:log
+
+curl -X POST -F hoge=@sample.jpg  https://<host>/hello_world
+finish : {"sample.jpg":{"filename":"sample.jpg","mimetype":"image/jpeg"}}
 ```
