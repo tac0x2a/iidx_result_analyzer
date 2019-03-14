@@ -9,7 +9,7 @@ gcloud beta functions deploy hello_world --trigger-http --runtime=python37
 
 ## Memo
 ```
-# firebase
+# firebase functions
 
 cd analyze
 firebase init functions
@@ -31,4 +31,9 @@ finish : {"sample.jpg":{"filename":"sample.jpg","mimetype":"image/jpeg"}}
 
 npm install --save @google-cloud/vision
 curl -X POST -F hoge=@sample2.jpg  https://<host>/hello_world
+
+
+firebase init hosting
+firebase deploy --only hosting
+https://<project-name>.firebaseapp.com/
 ```
