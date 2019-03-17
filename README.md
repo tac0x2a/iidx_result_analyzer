@@ -1,17 +1,18 @@
 # IIDX Result Analyzer powered by Google Cloud Vision API
 
 ## Deploy
-
 ```sh
-# gcloud
-gcloud beta functions deploy hello_world --trigger-http --runtime=python37
-```
+firebase deploy
+``
 
 ## Memo
-```
-# firebase functions
+```sh
+# Setup
+sudo apt install nodejs npm # for ubuntu
+sudo npm install -g firebase-tools
 
-cd analyze
+
+# firebase functions
 firebase init functions
 firebase deploy --only functions
 
@@ -31,7 +32,6 @@ finish : {"sample.jpg":{"filename":"sample.jpg","mimetype":"image/jpeg"}}
 
 npm install --save @google-cloud/vision
 curl -X POST -F hoge=@sample2.jpg  https://<host>/hello_world
-
 
 firebase init hosting
 firebase deploy --only hosting
